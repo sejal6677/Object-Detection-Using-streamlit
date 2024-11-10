@@ -2,4 +2,4 @@
 
 Youtube Video Explaining Code:
 
-* [Streamlit Object Detection Web App](https://www.youtube.com/watch?v=704KeHR4NVg)
+copy right @2024
