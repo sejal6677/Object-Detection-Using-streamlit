@@ -52,6 +52,7 @@ if upload:
 
     st.pyplot(fig, use_container_width=True)
 
+ #Rprediction method return
     del prediction["boxes"]
     st.header("Predicted Probabilities")
     st.write(prediction)
