@@ -3,6 +3,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
+# PyTorch and torchvision imports
 import torch
 from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights
 from torchvision.utils import draw_bounding_boxes
@@ -20,9 +21,11 @@ def load_model():
 model = load_model()
 
 def make_prediction(img): 
+# """Takes an image as input, processes it, and returns the model's prediction.Prediction dictionary includes 'boxes', 'labels', and 'scores' for each detected object."""
     img_processed = img_preprocess(img) ## (3,500,500) 
     prediction = model(img_processed.unsqueeze(0)) # (1,3,500,500)
-    prediction = prediction[0]                       ## Dictionary with keys "boxes", "labels", "scores".
+    prediction = prediction[0]                      
+## Dictionary with keys "boxes", "labels", "scores".
     prediction["labels"] = [categories[label] for label in prediction["labels"]]
     return prediction
 
@@ -43,6 +46,7 @@ if upload:
     prediction = make_prediction(img) ## Dictionary
     img_with_bbox = create_image_with_bboxes(np.array(img).transpose(2,0,1), prediction) ## (W,H,3) -> (3,W,H)
 
+## Display the image with bounding boxes in Streamlit
     fig = plt.figure(figsize=(12,12))
     ax = fig.add_subplot(111)
     plt.imshow(img_with_bbox)
@@ -52,7 +56,7 @@ if upload:
 
     st.pyplot(fig, use_container_width=True)
 
- #Rprediction method return
+ #  # Display the prediction dictionary with class labels and scores in Streamlit
     del prediction["boxes"]
     st.header("Predicted Probabilities")
     st.write(prediction)
